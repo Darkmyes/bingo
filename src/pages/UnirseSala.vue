@@ -77,8 +77,8 @@ export default {
   .tabla-icono-b {
     font-size: 24px;
     border-radius: 50%;
-    min-width: 2.5rem;
-    min-height: 2.5rem;
+    /* min-width: 2.5rem;
+    min-height: 2.5rem; */
   }
 
   .check-tabla {

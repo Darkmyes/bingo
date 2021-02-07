@@ -1,256 +1,118 @@
 <template>
-  <q-page class="full-height">
-    <div class="text-center text-h5 q-pt-md q-pb-md">
-      Elige las tablas con las que deseas jugar
-    </div>
-    <div class="opciones-cantidad">
-      <q-btn
-        v-for="(cant, index) in cantidades"
-        class="btn-opc q-pt-none"
-        :class="{'text-black' : cantidadTablas !== cant }"
-        :key="index"
-        rounded
-        dense
-        :color="cantidadTablas == cant ? 'primary': 'white'"
-        :label="cant + ' x Tabla'"
-        @click="cantidadTablas = cant"
-      />
+  <q-page class="full-height q-pb-xl bg-secondary text-white">
+    <div class="row justify-between text-h5 q-pl-lg q-pr-lg">
+      <div class="row items-center">
+        Número de Tablas
+        <q-select
+          class="q-pl-md"
+          input-class="bg-secondary text-white text-h3"
+          style="min-width: 150px;"
+          v-model="cantidadTablas"
+          :options="cantidades"
+          filled
+        />
+      </div>
+      <div class="column">
+        <div class="text-h3" style="color: #FF9900;">
+          10
+          <img src="~assets/coin.svg" width="30px" />x
+          Tabla
+        </div>
+        <div> Si tienes + de 4 tablas </div>
+      </div>
     </div>
     <div class="tablas">
-      <div>
-        <div class="row justify-end">
-          <q-checkbox left-label class="text-h6" label="Elegido" />
+      <div v-for="(tabla, index) in tablasElec" :key="tabla.id">
+        <div class="row justify-center q-pb-sm">
+          <q-btn flat rounded dense color="white" icon="cached" label="Otra" style="font-size: 16px;" @click="nuevaTabla(tabla.id)"/>
         </div>
-        <div class="tabla shadow-4 bg-primary">
-          <div class="tabla-titulo text-white">
-            <div>B</div><div>I</div><div>N</div><div>G</div><div>O</div>
-          </div>
-          <div class="tabla-contenido">
-            <div class="columna columna-b">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div><div class="tabla-icono-b bg-primary text-white cursor-pointer">B</div></div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna columna-o">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="row justify-end">
-          <q-checkbox left-label class="text-h6" label="Elegido" />
-        </div>
-        <div class="tabla shadow-4 bg-primary">
-          <div class="tabla-titulo text-white">
-            <div>B</div><div>I</div><div>N</div><div>G</div><div>O</div>
-          </div>
-          <div class="tabla-contenido">
-            <div class="columna columna-b">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div><div class="tabla-icono-b bg-primary text-white cursor-pointer">B</div></div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna columna-o">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="row justify-end">
-          <q-checkbox left-label class="text-h6" label="Elegido" />
-        </div>
-        <div class="tabla shadow-4 bg-primary">
-          <div class="tabla-titulo text-white">
-            <div>B</div><div>I</div><div>N</div><div>G</div><div>O</div>
-          </div>
-          <div class="tabla-contenido">
-            <div class="columna columna-b">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div><div class="tabla-icono-b bg-primary text-white cursor-pointer">B</div></div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna columna-o">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="row justify-end">
-          <q-checkbox left-label class="text-h6" label="Elegido" />
-        </div>
-        <div class="tabla shadow-4 bg-primary">
-          <div class="tabla-titulo text-white">
-            <div>B</div><div>I</div><div>N</div><div>G</div><div>O</div>
-          </div>
-          <div class="tabla-contenido">
-            <div class="columna columna-b">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div><div class="tabla-icono-b bg-primary text-white cursor-pointer">B</div></div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna columna-o">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="row justify-end">
-          <q-checkbox left-label class="text-h6" label="Elegido" />
-        </div>
-        <div class="tabla shadow-4 bg-primary">
-          <div class="tabla-titulo text-white">
-            <div>B</div><div>I</div><div>N</div><div>G</div><div>O</div>
-          </div>
-          <div class="tabla-contenido">
-            <div class="columna columna-b">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div><div class="tabla-icono-b bg-primary text-white cursor-pointer">B</div></div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna columna-o">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="row justify-end">
-          <q-checkbox left-label class="text-h6" label="Elegido" />
-        </div>
-        <div class="tabla shadow-4 bg-primary">
-          <div class="tabla-titulo text-white">
-            <div>B</div><div>I</div><div>N</div><div>G</div><div>O</div>
-          </div>
-          <div class="tabla-contenido">
-            <div class="columna columna-b">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div><div class="tabla-icono-b bg-primary text-white cursor-pointer">B</div></div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna columna-o">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="row justify-end">
-          <q-checkbox left-label class="text-h6" label="Elegido" />
-        </div>
-        <div class="tabla shadow-4 bg-primary">
-          <div class="tabla-titulo text-white">
-            <div>B</div><div>I</div><div>N</div><div>G</div><div>O</div>
-          </div>
-          <div class="tabla-contenido">
-            <div class="columna columna-b">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div><div class="tabla-icono-b bg-primary text-white cursor-pointer">B</div></div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna columna-o">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="row justify-end">
-          <q-checkbox left-label class="text-h6" label="Elegido" />
-        </div>
-        <div class="tabla shadow-4 bg-primary">
-          <div class="tabla-titulo text-white">
-            <div>B</div><div>I</div><div>N</div><div>G</div><div>O</div>
-          </div>
-          <div class="tabla-contenido">
-            <div class="columna columna-b">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div><div class="tabla-icono-b bg-primary text-white cursor-pointer">B</div></div><div>b</div><div>b</div>
-            </div>
-            <div class="columna">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-            <div class="columna columna-o">
-              <div>b</div><div>b</div><div>b</div><div>b</div><div>b</div>
-            </div>
-          </div>
-        </div>
+        <tabla v-model="tabla.tabla" :ref="'tabla'+tabla.id" :bg="colorPorNum(index)"/>
       </div>
     </div>
+
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-btn fab icon="check" class="text-white bg-primary shadow-8" @click="$router.push('unirse_sala')"/>
+    </q-page-sticky>
   </q-page>
 </template>
 
 <script>
+import Tabla from 'src/components/Tabla.vue'
+
 export default {
+  components: { Tabla },
   name: 'EleccionTabla',
   data: () => {
     return {
-      cantidadTablas: 1,
-      cantidades: [1, 2, 4, 6, 8]
+      cantidadTablas: 'x1',
+      cantidades: ['x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8'],
+      tablas: [
+        { id: 1, seleccion: false, tabla: null },
+        { id: 2, seleccion: false, tabla: null },
+        { id: 3, seleccion: false, tabla: null },
+        { id: 4, seleccion: false, tabla: null },
+        { id: 5, seleccion: false, tabla: null },
+        { id: 6, seleccion: false, tabla: null },
+        { id: 7, seleccion: false, tabla: null },
+        { id: 8, seleccion: false, tabla: null }
+      ]
+    }
+  },
+  computed: {
+    tablasElec () {
+      const cant = this.cantidadTablas.split('x')[1]
+      const arr = []
+      for (let x = 0; x < cant; x++) {
+        arr.push(this.tablas[x])
+      }
+      return arr
+    },
+    puedeElegir () {
+      let conteo = 0
+      this.tablas.forEach(e => {
+        if (e.seleccion) { conteo++ }
+      })
+      return conteo < this.cantidadTablas
+    }
+  },
+  methods: {
+    nuevaTabla (id) {
+      this.$refs[('tabla' + id)][0].generarNueva()
+    },
+    colorPorNum (num) {
+      const numString = num.toString()
+      const numFinal = numString[numString.length - 1]
+      switch (numFinal) {
+        case '0' : return 1
+        case '1' : return 2
+        case '2' : return 3
+        case '3' : return 4
+        case '4' : return 5
+        case '5' : return 1
+        case '6' : return 2
+        case '7' : return 3
+        case '8' : return 4
+        case '9' : return 5
+        default: return 1
+      }
+    },
+    seleccionarCantidad (cant) {
+      this.cantidadTablas = cant
+
+      let conteo = 0
+      this.tablas.forEach(e => {
+        if (e.seleccion) {
+          conteo++
+          if (conteo <= this.cantidadTablas) {
+            e.seleccion = true
+          } else {
+            e.seleccion = false
+          }
+        }
+      })
+
+      /* if (conteo >= this.cantidadTablas) {
+      } */
     }
   }
 }
@@ -272,77 +134,10 @@ export default {
 
   .tablas {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 340px));
+    grid-template-columns: repeat(auto-fit, 270px);
     justify-content: space-around;
     gap: 1rem;
     padding: 1rem;
-  }
-
-  .tabla {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: 2.5rem auto;
-    border-radius: 1.5rem;
-    min-height: 400px;
-    max-width: 340px;
-    min-width: 300px;
-    padding: 0 .5rem .5rem .5rem;
-  }
-
-  .tabla-titulo {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    text-align: center;
-    font-size: 32px;
-  }
-
-  .tabla-contenido {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 2px;
-  }
-
-  .tabla-icono-b {
-    font-size: 24px;
-    border-radius: 50%;
-    min-width: 2.5rem;
-    min-height: 2.5rem;
-  }
-
-  .check-tabla {
-    display: absolute;
-    top: -2rem;
-  }
-
-  .columna {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: repeat(5, 1fr);
-    gap: 2px;
-    text-align: center;
-  }
-
-  .columna div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-  }
-
-  .columna-b div:first-child {
-    border-top-left-radius: 1rem;
-  }
-
-  .columna-b div:last-child {
-    border-bottom-left-radius: 1rem;
-  }
-
-  .columna-o div:first-child {
-    border-top-right-radius: 1rem;
-  }
-
-  .columna-o div:last-child {
-    border-bottom-right-radius: 1rem;
   }
 
   @media (max-width: 500px) {

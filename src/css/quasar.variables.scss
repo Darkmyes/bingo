@@ -15,9 +15,9 @@
 // $primary   : #8D3BF5;
 // $primary   : #F04B4B;
 
-$primary   : #34E37A;
-$secondary : #26A69A;
-$accent    : #9C27B0;
+$primary   : rgba(0, 0, 0, 0.28); // #34E37A;
+$secondary : rgba(50, 50, 50, 1); // #26A69A;
+$accent    : rgba(124, 124, 124, 0.35); // #9C27B0;
 
 $dark      : #1D1D1D;
 
@@ -25,3 +25,9 @@ $positive  : #21BA45;
 $negative  : #C10015;
 $info      : #31CCEC;
 $warning   : #F2C037;
+
+$tb1       : #027100;
+$tb2       : #BA0000;
+$tb3       : #FF9900;
+$tb4       : #87038A;
+$tb5       : #0081CA;

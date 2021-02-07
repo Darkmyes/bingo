@@ -1,53 +1,71 @@
 <template>
-  <q-page class="full-height column justify-between q-pb-md bg-bingo">
-    <div class="column items-center full-width" style="padding-bottom: 4rem;">
+  <q-page class="full-height q-pb-md bg-secondary">
+    <div class="bg-bingo">
       <q-toolbar class="justify-end">
-        <q-btn flat rounded no-caps color="white" class="btn-top text-shadow" label="¿Cómo Jugar?"/>
-        <q-btn flat rounded no-caps color="white" class="btn-top text-shadow" label="Iniciar Sesión"/>
+        <q-btn flat rounded no-caps color="white" class="btn-top text-shadow" label="Registrarme" @click="btnRegistro"/>
+        <q-btn flat rounded no-caps color="white" class="btn-top text-shadow" label="Iniciar Sesión" @click="btnLogin"/>
       </q-toolbar>
-      <div class="text-white text-shadow titulo">BINGO</div>
-      <q-btn class="bg-white text-primary btn-jugar" rounded icon="play_circle_filled" label="Jugar" />
-    </div>
-    <div class="cards">
-      <q-card class="my-card bg-primary text-white">
-        <div class="row justify-center">
-          <q-icon class="card-icon" color="white" name="grid_on"/>
+      <div class="row justify-around items-center">
+        <img id="bingo-logo" src="~assets/bingo_logo.png"/>
+        <div class="btn-jugar-wrapper">
+          <q-btn class="bg-white text-black btn-jugar" rounded icon="play_circle_filled" label="Jugar" @click="$router.push('eleccion_tabla')"/>
         </div>
-        <q-card-section>
+      </div>
+      <div class="cards q-pt-xl">
+        <div class="my-card back-number-1">
+          <div class="row justify-center q-pb-md">
+            <q-icon class="card-icon" color="white" name="grid_on"/>
+          </div>
           <div class="text-h5 text-white text-center">
             Elije tus tablas de entre las opciones
           </div>
-        </q-card-section>
-      </q-card>
-
-      <q-card class="my-card bg-primary text-white">
-        <div class="row justify-center">
-          <q-icon class="card-icon" color="white" name="login"/>
         </div>
-        <q-card-section>
-          <div class="text-h5 text-center">
+        <div class="my-card back-number-2">
+          <div class="row justify-center q-pb-md">
+            <q-icon class="card-icon" color="white" name="login"/>
+          </div>
+          <div class="text-h5 text-white text-center">
             Únete a una Sala o Créala
           </div>
-        </q-card-section>
-      </q-card>
-
-      <q-card class="my-card bg-primary text-white">
-        <div class="row justify-center">
-          <q-icon class="card-icon" color="white" name="casino"/>
         </div>
-        <q-card-section>
-          <div class="text-h5 text-center">
+        <div class="my-card back-number-3">
+          <div class="row justify-center q-pb-md">
+            <q-icon class="card-icon" color="white" name="casino"/>
+          </div>
+          <div class="text-h5 text-white text-center">
             Disfruta del juego
           </div>
-        </q-card-section>
-      </q-card>
+        </div>
+      </div>
     </div>
+    <q-dialog v-model="sesion">
+      <sesion v-model="modo"></sesion>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
+import Sesion from 'src/components/Sesion.vue'
+
 export default {
-  name: 'PageIndex'
+  name: 'PageIndex',
+  components: { Sesion },
+  data: () => {
+    return {
+      sesion: false,
+      modo: 'login'
+    }
+  },
+  methods: {
+    btnLogin () {
+      this.modo = 'login'
+      this.sesion = true
+    },
+    btnRegistro () {
+      this.modo = 'registro'
+      this.sesion = true
+    }
+  }
 }
 </script>
 
@@ -55,7 +73,7 @@ export default {
   .bg-bingo {
     background-image: url('~assets/bg_svg.svg');
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: 100%; /*contain;*/
   }
 
   .titulo {
@@ -69,24 +87,56 @@ export default {
     padding-right: .5rem;
   }
 
+  .btn-jugar-wrapper {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-width: 250px;
+    min-height: 200px;
+    background-size: 250px;
+    background-repeat: no-repeat;
+    background-image: url('~assets/tablas_bingo.png');
+  }
+
   .btn-top {
     font-size: 20px;
   }
 
   .cards {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+    gap: 1rem;
+    padding-left: 3rem;
   }
 
   .my-card {
-    border-radius: 2rem;
-    max-width: 300px;
-    min-width: 280px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 2rem;
+    align-content: center;
+    max-width: 275px;
+    min-width: 275px;
+    min-height: 250px;
+  }
+
+  .back-number-1 {
+    background-image: url('~assets/uno.svg');
+    background-repeat: no-repeat;
+    background-size: 120px;
+  }
+
+  .back-number-2 {
+    background-image: url('~assets/dos.svg');
+    background-repeat: no-repeat;
+    background-size: 160px;
+  }
+
+  .back-number-3 {
+    background-image: url('~assets/tres.svg');
+    background-repeat: no-repeat;
+    background-size: 160px;
   }
 
   .card-icon {
@@ -104,6 +154,10 @@ export default {
     .bg-bingo {
       background-image: url('~assets/bg_svg_1000.svg');
       /* background-image: url('~assets/bg_svg_900.svg'); */
+    }
+
+    #bingo-logo {
+      width: 550px;
     }
   }
 
@@ -130,6 +184,10 @@ export default {
     .btn-jugar {
       font-size: 32px;
     }
+
+    #bingo-logo {
+      width: 400px;
+    }
   }
 
   @media (max-width: 500px) {
@@ -154,5 +212,27 @@ export default {
       font-size: 80px;
     }
 
+  }
+
+  @media (max-width: 400px) {
+    #bingo-logo {
+      width: 300px;
+    }
+
+    .cards {
+      padding-left: 1rem;
+    }
+
+    .my-card {
+      min-height: 180px;
+    }
+
+    .back-number-1 {
+      background-size: 75px;
+    }
+
+    .back-number-2, .back-number-3 {
+      background-size: 100px;
+    }
   }
 </style>
