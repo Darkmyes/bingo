@@ -1,16 +1,22 @@
 <template>
-  <q-page class="full-height q-pb-xl bg-secondary text-white">
+  <q-page class="full-height bg-secondary text-white" style="padding-bottom: 150px;">
     <div class="row justify-between text-h5 q-pl-lg q-pr-lg">
       <div class="row items-center">
         Número de Tablas
-        <q-select
-          class="q-pl-md"
-          input-class="bg-secondary text-white text-h3"
-          style="min-width: 150px;"
-          v-model="cantidadTablas"
-          :options="cantidades"
-          filled
-        />
+        <q-btn-dropdown flat :label="cantidadTablas" content-class="bg-secondary" class="text-h5 q-ml-md" :text-color="color(colorPorNum(parseInt(cantidadTablas[cantidadTablas.length - 1]) - 1))">
+          <q-list>
+            <q-item v-for="(cant, index) in cantidades" :key="index" clickable @click="cantidadTablas = cant" v-close-popup>
+              <q-item-section>
+                <q-item-label
+                  class="text-center text-h5 baloo-font"
+                  :class="textColor(colorPorNum(index))"
+                >
+                  {{cant}}
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
       </div>
       <div class="column">
         <div class="text-h3" style="color: #FF9900;">
@@ -31,7 +37,9 @@
     </div>
 
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-btn fab icon="check" class="text-white bg-primary shadow-8" @click="$router.push('unirse_sala')"/>
+      <div class="btn-jugar-wrapper">
+        <q-btn class="bg-white text-black btn-jugar" rounded icon="play_circle_filled" label="Elegir" @click="$router.push('unirse_sala')"/>
+      </div>
     </q-page-sticky>
   </q-page>
 </template>
@@ -78,6 +86,18 @@ export default {
   methods: {
     nuevaTabla (id) {
       this.$refs[('tabla' + id)][0].generarNueva()
+    },
+    textColor (val) {
+      if (typeof (val) !== 'undefined') {
+        return 'text-tb' + val.toString()
+      }
+      return 'text-tb1'
+    },
+    color (val) {
+      if (typeof (val) !== 'undefined') {
+        return 'tb' + val.toString()
+      }
+      return 'tb1'
     },
     colorPorNum (num) {
       const numString = num.toString()
@@ -138,6 +158,16 @@ export default {
     justify-content: space-around;
     gap: 1rem;
     padding: 1rem;
+  }
+
+  .btn-jugar {
+    font-size: 24px;
+  }
+
+  .btn-jugar-wrapper {
+    min-height: 130px;
+    min-width: 150px;
+    background-size: 160px;
   }
 
   @media (max-width: 500px) {
