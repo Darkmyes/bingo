@@ -12,27 +12,33 @@
             <span class="text-white"> x Unirse</span>
           </div>
         </div>
-        <q-btn class="bg-white text-black" rounded icon="add" label="Crear Sala" @click="$router.push('unirse_sala')"/>
+        <q-btn rounded class="bg-white text-black" icon="add" label="Crear Sala" @click="modalNuevaSala = true"/>
       </div>
       <div class="salas">
         <Sala v-for="(sala, index) in salas" :key="index" :value="sala" :bg="colorPorNum(index)"></Sala>
       </div>
     </div>
+    <q-dialog v-model="modalNuevaSala" persistent>
+      <NuevaSala v-model="modalNuevaSala"/>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
 import Sala from 'components/Sala'
+import NuevaSala from 'components/NuevaSala'
 
 export default {
   name: 'UnirseSala',
   components: {
-    Sala
+    Sala,
+    NuevaSala
   },
   data: () => {
     return {
       cantidadTablas: 1,
       cantidades: [1, 2, 4, 6, 8],
+      modalNuevaSala: false,
       salas: [
         {
           personas: 12,
