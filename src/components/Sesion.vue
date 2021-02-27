@@ -7,10 +7,10 @@
       </div>
       <q-card-section>
         <div class="text-h6">Correo</div>
-        <q-input filled class="bg-accent" type="text"/>
+        <q-input filled class="bg-accent" v-model="user.correo" input-class="text-white" type="text"/>
         <br/>
         <div class="text-h6">Contraseña</div>
-        <q-input filled class="bg-accent" type="text"/>
+        <q-input filled class="bg-accent" v-model="user.pass" input-class="text-white" type="password"/>
       </q-card-section>
       <q-card-section class="row justify-center">
         <q-btn no-caps rounded style="min-width: 80%;" class="text-black bg-white text-h5" label="Entrar" />
@@ -24,29 +24,31 @@
       <!-- 1 PARTE -->
       <q-card-section v-if="pag === 1">
         <div class="text-h6">Apellidos</div>
-        <q-input filled class="bg-accent" type="text"/>
+        <q-input filled class="bg-accent" input-class="text-white" type="text" v-model="user.apellidos"/>
         <br/>
         <div class="text-h6">Nombres</div>
-        <q-input filled class="bg-accent" type="text"/>
+        <q-input filled class="bg-accent" input-class="text-white" type="text" v-model="user.nombres"/>
         <br/>
         <div class="text-h6">Fecha de Nacimiento</div>
-        <q-input filled class="bg-accent" type="text"/>
+        <q-input filled class="bg-accent" input-class="text-white" type="date" v-model="user.fechaNacimiento"/>
       </q-card-section>
       <!-- 2 PARTE -->
       <q-card-section v-if="pag === 2">
         <div class="text-h6">Correo</div>
-        <q-input filled class="bg-accent" type="text"/>
+        <q-input filled class="bg-accent" input-class="text-white" type="text" v-model="user.correo"/>
         <div class="text-h6">Contraseña</div>
-        <q-input filled class="bg-accent" type="text"/>
+        <q-input filled class="bg-accent" input-class="text-white" type="text" v-model="user.pass"/>
         <div class="text-h6">Repetir Contraseña</div>
-        <q-input filled class="bg-accent" type="text"/>
+        <q-input filled class="bg-accent" input-class="text-white" type="text" v-model="user.confirmPass"/>
       </q-card-section>
       <div class="row justify-center">
         <div class="circle-btn cursor-pointer q-mr-md" :class="{'bg-white' : pag === 1, 'bg-accent' : pag === 2}" @click="pag = 1"></div>
         <div class="circle-btn cursor-pointer q-ml-md" :class="{'bg-white' : pag === 2, 'bg-accent' : pag === 1}" @click="pag = 2"></div>
       </div>
-      <q-card-section class="row justify-center">
-        <q-btn no-caps rounded style="min-width: 80%;" class="text-black bg-white text-h5" :label="pag === 1 ? 'Siguiente' : 'Finalizar'" />
+      <q-card-section class="row justify-between">
+        <q-btn no-caps v-if="pag === 1" rounded style="min-width: 100%;" class="text-black bg-white text-h5" label="Siguiente" @click="pag = 2"/>
+        <q-btn no-caps v-if="pag === 2" rounded style="min-width: 30%;" class="text-black bg-white text-h5" label="Atras" @click="pag = 1"/>
+        <q-btn no-caps v-if="pag === 2" rounded style="min-width: 50%;" class="text-black bg-white text-h5" label="Finalizar" />
       </q-card-section>
     </div>
     <q-dialog v-model="confirm" persistent>
@@ -74,7 +76,15 @@ export default {
     return {
       pag: 1,
       pags: [1, 2],
-      confirm: false
+      confirm: false,
+      user: {
+        apellidos: '',
+        nombres: '',
+        fechaNacimiento: '',
+        correo: '',
+        pass: '',
+        confirmPass: ''
+      }
     }
   },
   mounted () {
